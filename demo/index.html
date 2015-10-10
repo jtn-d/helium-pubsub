@@ -1,0 +1,57 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>helium-pubsub Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../helium-pubsub.html">
+  </head>
+  <body unresolved>
+
+    <template is="dom-bind" id="app" >
+      <p>
+        <code>&lt;helium-subscribe message="hello" data="{{data}}" auto&gt;&lt;/helium-subscribe&gt;</code></br>
+        <code>&lt;div&gt;{{data.greeting}}&lt;/div&gt;</code>
+      </p>
+      <helium-subscribe id="sub" message="hello" data="{{data}}" auto on-hello="handleHello"></helium-subscribe>
+      <div>{{data.greeting}}</div>
+      
+      
+      <p>
+        <code>&lt;helium-publish message="hello" data='{"greeting":"Hello world!"}'&gt;&lt;/helium-publish&gt;</code></br>
+        <code>&lt;button on-click="publishHello"&gt;Publish&lt;/button&gt;</code>
+      </p>
+      <helium-publish id="pub" message="hello" data='{"greeting":"Hello world!"}'></helium-publish>
+      <button on-click="publishHello">Publish</button>
+    </template>
+    <script>
+      var app = document.querySelector('#app');
+      
+      app.addEventListener('dom-change', function() {
+        app.$.sub.addEventListener('hello', function(e) {
+          console.log(e.detail.data);
+        });
+      });
+      
+      app.publishHello = function() {
+        app.$.pub.publish();
+      };
+      
+      app.handleHello = function(e) {
+        console.log(e.detail.data);        
+      };
+      
+    </script>
+
+  </body>
+</html>

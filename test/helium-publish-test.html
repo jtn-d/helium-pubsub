@@ -1,0 +1,121 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+pubject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+
+    <link rel="import" href="../../test-fixture/test-fixture.html">
+    
+    <!-- import the element to test -->
+    <link rel="import" href="../helium-publish.html">
+  </head>
+  <body>
+
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <test-fixture id="plain-pub">
+      <template>
+        <helium-publish></helium-publish>
+      </template>
+    </test-fixture>
+    
+    <test-fixture id="pub">
+      <template>
+        <helium-publish message="hello"></helium-publish>
+      </template>
+    </test-fixture>
+    
+    <test-fixture id="auto-pub">
+      <template>
+        <helium-publish message="hello" data='{"greeting":"Hello world!"}' auto></helium-publish>
+      </template>
+    </test-fixture>
+    
+    <script>
+      var plainPub;
+      var pub;
+      var autoPub;
+      
+      describe('<helium-publish>', function() {
+
+        beforeEach(function() {
+          plainPub = fixture('plain-pub');
+        });
+        
+        it('should be ok', function() {
+          expect(plainPub).to.be.ok;
+          expect(plainPub.auto).to.be.false;
+          expect(plainPub.message).to.be.undefined;
+          expect(plainPub.data).to.be.undefined;
+        });
+        
+        it('should publish message', function(done) {
+          plainPub.message = 'hello';
+          plainPub.data = {greeting: 'Hello world!'};
+          PubSub.subscribe('hello', function(msg, data) {
+            expect(data.greeting).to.be.equal('Hello world!');
+            done();
+          });
+          plainPub.publish();
+        });
+      });
+      
+      describe('<helium-publish message="hello">', function() {
+
+        beforeEach(function() {
+          pub = fixture('pub');
+        });
+      
+        it('should be ok', function() {
+          expect(pub).to.be.ok;
+          expect(pub.auto).to.be.false;
+          expect(pub.message).to.be.equal('hello');
+          expect(pub.data).to.be.undefined;
+        });
+        
+        it('should publish message', function(done) {
+          pub.data = {greeting: 'Hello world!'};
+          PubSub.subscribe('hello', function(msg, data) {
+            expect(data.greeting).to.be.equal('Hello world!');
+            done();
+          });
+          pub.publish();
+        });
+      });
+      
+      describe('<helium-publish message="hello" data={"greeting":"Hello world!"} auto>', function() {
+
+        beforeEach(function() {
+          autoPub = fixture('auto-pub');
+        });
+        
+        it('should be ok', function() {
+          expect(autoPub).to.be.ok;
+          expect(autoPub.auto).to.be.true;
+          expect(autoPub.message).to.be.equal('hello');
+          expect(autoPub.data.greeting).to.be.equal('Hello world!');
+        });
+        
+        it('should publish message', function(done) {;
+          PubSub.subscribe('hello', function(msg, data) {
+            expect(data.greeting).to.be.equal('Hello world!');
+            done();
+          });
+        });
+      });
+    </script>
+
+  </body>
+</html>
