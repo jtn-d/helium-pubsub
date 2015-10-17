@@ -4,7 +4,8 @@ Element wrapper for the [PubSubJS](https://github.com/mroderick/PubSubJS) librar
 
 ```html
 <helium-subscribe auto
-    message="hello" data="{{data}}">
+    message="hello" data="{{data}}"
+    on-hello="handleHello">
 </helium-subscribe>
 <div>{{data.greeting}}</div>
 
