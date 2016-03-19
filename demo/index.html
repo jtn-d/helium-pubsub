@@ -11,7 +11,7 @@
 
     <template is="dom-bind" id="app" >
       <p>
-        <code>&lt;helium-subscribe message="hello" data="{{data}}" auto&gt;&lt;/helium-subscribe&gt;</code></br>
+        <code>&lt;helium-subscribe message="hello" data="{{data}}" auto&gt;&lt;/helium-subscribe&gt;</code><br>
         <code>&lt;div&gt;{{data.greeting}}&lt;/div&gt;</code>
       </p>
       <helium-subscribe id="sub" message="hello" data="{{data}}" auto on-hello="handleHello"></helium-subscribe>
@@ -19,7 +19,7 @@
       
       
       <p>
-        <code>&lt;helium-publish message="hello" data='{"greeting":"Hello world!"}'&gt;&lt;/helium-publish&gt;</code></br>
+        <code>&lt;helium-publish message="hello" data='{"greeting":"Hello world!"}'&gt;&lt;/helium-publish&gt;</code><br>
         <code>&lt;button on-click="publishHello"&gt;Publish&lt;/button&gt;</code>
       </p>
       <helium-publish id="pub" message="hello" data='{"greeting":"Hello world!"}'></helium-publish>

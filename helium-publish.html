@@ -61,10 +61,6 @@ Example:
       if (this.message === undefined) {
         console.warn('helium-publish: message not defined');
       }
-      
-      if (this.auto) {
-        this.publish();
-      }
     },
 
     attached: function() {
@@ -74,6 +70,11 @@ Example:
       // This is a good place to perform any work related to your element's
       // visual state or active behavior (measuring sizes, beginning animations,
       // loading resources, etc).
+			this.async(function() {
+				if (this.auto) {
+					this.publish();
+				}
+			});
     },
 
     detached: function() {

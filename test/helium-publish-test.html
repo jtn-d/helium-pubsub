@@ -24,13 +24,13 @@
     
     <test-fixture id="pub">
       <template>
-        <helium-publish message="hello"></helium-publish>
+        <helium-publish message="hello1"></helium-publish>
       </template>
     </test-fixture>
     
     <test-fixture id="auto-pub">
       <template>
-        <helium-publish message="hello" data='{"greeting":"Hello world!"}' auto></helium-publish>
+        <helium-publish message="hello2" data='{"greeting":"Hello world!"}' auto></helium-publish>
       </template>
     </test-fixture>
     
@@ -63,7 +63,7 @@
         });
       });
       
-      describe('<helium-publish message="hello">', function() {
+      describe('<helium-publish message="hello1">', function() {
 
         beforeEach(function() {
           pub = fixture('pub');
@@ -72,13 +72,13 @@
         it('should be ok', function() {
           expect(pub).to.be.ok;
           expect(pub.auto).to.be.false;
-          expect(pub.message).to.be.equal('hello');
+          expect(pub.message).to.be.equal('hello1');
           expect(pub.data).to.be.undefined;
         });
         
         it('should publish message', function(done) {
           pub.data = {greeting: 'Hello world!'};
-          PubSub.subscribe('hello', function(msg, data) {
+          PubSub.subscribe('hello1', function(msg, data) {
             expect(data.greeting).to.be.equal('Hello world!');
             done();
           });
@@ -86,24 +86,27 @@
         });
       });
       
-      describe('<helium-publish message="hello" data={"greeting":"Hello world!"} auto>', function() {
+      describe('<helium-publish message="hello2" data={"greeting":"Hello world!"} auto>', function() {
 
         beforeEach(function() {
           autoPub = fixture('auto-pub');
         });
-        
-        it('should be ok', function() {
-          expect(autoPub).to.be.ok;
-          expect(autoPub.auto).to.be.true;
-          expect(autoPub.message).to.be.equal('hello');
-          expect(autoPub.data.greeting).to.be.equal('Hello world!');
+
+				it('should be ok', function(done) {
+					flush(function () {
+						expect(autoPub).to.be.ok;
+						expect(autoPub.auto).to.be.true;
+						expect(autoPub.message).to.be.equal('hello2');
+						expect(autoPub.data.greeting).to.be.equal('Hello world!');
+						done();
+					});
         });
         
-        it('should publish message', function(done) {;
-          PubSub.subscribe('hello', function(msg, data) {
-            expect(data.greeting).to.be.equal('Hello world!');
-            done();
-          });
+        it('should publish message', function(done) {
+					PubSub.subscribe('hello2', function(msg, data) {
+						expect(data.greeting).to.be.equal('Hello world!');
+						done();
+					});
         });
       });
     </script>
