@@ -14,6 +14,8 @@ Element wrapper for the [PubSubJS](https://github.com/mroderick/PubSubJS) librar
 </helium-publish>
 ```
 
+_[Demo and API docs](http://jtn-d.github.io/helium-pubsub)_
+
 ## Running Element
 
     polyserve
