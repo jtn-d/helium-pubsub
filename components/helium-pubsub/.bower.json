@@ -1,0 +1,35 @@
+{
+  "name": "helium-pubsub",
+  "description": "Element wrapper for PubSubJS library",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "pubsub"
+  ],
+  "main": "helium-pubsub.html",
+  "license": "MIT",
+  "homepage": "https://github.com/jtn-d/helium-pubsub/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "PubSubJS": "pubsub-js#~1.5.3",
+    "polymer": "Polymer/polymer#^1.1.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#~1.0.0",
+    "web-component-tester": "*"
+  },
+  "_release": "cc9596254c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "cc9596254c906220ef5cea73f9ec11b860f1f615"
+  },
+  "_source": "git://github.com/jtn-d/helium-pubsub.git",
+  "_target": "master",
+  "_originalSource": "jtn-d/helium-pubsub",
+  "_direct": true
+}
